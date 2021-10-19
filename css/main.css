@@ -1,10 +1,10 @@
 body {
-    padding: 25px 50px;
+    padding: 25px;
+    font-family: 'Lato', serif;
 }
 
 a {
     text-decoration: none;
-    color: black;
 }
 
 #logo {
@@ -33,6 +33,7 @@ a {
     background: #E7E7E7;
     font-size: 25px;
     padding: 11px;
+    color: black;
 }
 
 .arrow--up {
@@ -61,9 +62,17 @@ a {
     padding: 20px 20px 20px 15px;
     font-size: 16px;
     cursor: pointer;
-    min-width: 170px;
+    max-width: 130px;
     text-align: left;
     border-radius: 5px;
+}
+
+.dropbtn::placeholder {
+    color: white;
+}
+
+.dropbtn:focus-visible {
+    outline: transparent;
 }
 
 .dropdown {
@@ -86,17 +95,23 @@ a {
     align-items: center;
 }
 
-.dropdown-content {
+.dropdown--content__wrapper {
     display: none;
     position: absolute;
     margin-top: -3px;
-    width: 170px; 
+    max-width: 600px; 
+    max-height: 400px;
+    overflow: hidden;
     z-index: 1;
     color: white;
     padding: 12px 16px;
-    text-decoration: none;
     cursor: pointer;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 5px 5px 5px;
+}
+
+.dropdown--content {
+    margin: 3px;
+    width: 33%;
 }
 
 .ingredients--button {
@@ -104,10 +119,20 @@ a {
     border: 1px solid #3282F7;
 }
 
+#ingredients {
+    background: #3282F7;
+    min-width: 500px;
+}
+
 .appareil--button {
     background: #68D9A4;
     border: 1px solid #68D9A4;
+}
 
+#appareil {
+    background: #68D9A4;
+    min-width: 300px;
+    max-height: 150px;
 }
 
 .ustensiles--button {
@@ -115,25 +140,51 @@ a {
     border: 1px solid #ED6454;
 }
 
-.dropdown-content button.background:hover {filter: brightness(50%);}
-
-.dropdown:hover .dropdown-content{
-    display: block;
+#ustensiles {
+    background: #ED6454;
+    min-width: 450px;
+    height: 225px;
 }
 
-.dropdown:hover .arrow--down {
+.dropdown:hover .dropdown--content__wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.dropdown:focus-within .arrow--down {
     display: none;
 }
 
-.dropdown:hover .arrow--up {
+.dropdown:focus-within .arrow--up {
     display: block;
+}
+
+#main--wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.div--wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 125px;
+}
+
+.div--wrapper p {
+    font-size: 12px;
 }
 
 .recipe--wrapper {
     height: 360px;
     width: 380px;
-    background-color: lightblue;
+    background-color: #E7E7E7;
     border-radius: 5px;
+    margin-bottom: 25px;
 }
 
 .recipe--image {
@@ -143,9 +194,45 @@ a {
     border-radius: 5px 5px 0px 0px;
 }
 
+.recipe--description {
+    padding: 10px;
+}
+
 .title--wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 10px;
+    align-items: center;
+    font-size: 18px;
+}
+
+.title--wrapper p {
+    margin: 15px 0px;
+}
+
+.title {
+    max-width: 70%;
+}
+
+.ingredients--wrapper {
+    width: 45%;
+    height: 125px;
+}
+
+.ingredients--wrapper p {
+    margin: 2px 0px 2px 0px;
+}
+
+.description--wrapper {
+    width: 50%;
+    height: 125px;
+}
+
+.description--wrapper p {
+    margin: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
