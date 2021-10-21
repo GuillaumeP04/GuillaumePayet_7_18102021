@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'Lato';
+    src: url(https://fonts.googleapis.com/css?family=Lato);
+}
+
 body {
-    padding: 25px;
+    padding: 50px;
     font-family: 'Lato', serif;
 }
 
@@ -146,11 +151,15 @@ a {
     height: 225px;
 }
 
-.dropdown:hover .dropdown--content__wrapper{
+.dropdown:focus-within .dropdown--content__wrapper{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     flex-wrap: wrap;
+}
+
+.dropdown:focus-within .dropbtn{
+    width: max-content;
 }
 
 .dropdown:focus-within .arrow--down {
