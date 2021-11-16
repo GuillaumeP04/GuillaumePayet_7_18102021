@@ -5,23 +5,23 @@ const recipes = [
         "servings" : 1,
         "ingredients": [
             {
-                "ingredient" : "Lait de coco",
-                "quantity" : 400,
-                "unit" : "ml"
+                "ingredient": "Lait de coco",
+                "quantity": 400,
+                "unit": "ml"
             },
             {
-                "ingredient" : "Jus de citron",
-                "quantity" : 2
+                "ingredient": "Jus de citron",
+                "quantity": 2
             },
             {
-                "ingredient" : "Crème de coco",
-                "quantity" : 2,
-                "unit" : " cuillères à soupe"
+                "ingredient": "Crème de coco",
+                "quantity": 2,
+                "unit": " cuillères à soupe"
             },
             {
-                "ingredient" : "Sucre",
-                "quantity" : 30,
-                "unit" : "g"
+                "ingredient": "Sucre",
+                "quantity": 30,
+                "unit": "g"
             },
             {
                 "ingredient": "Glaçons"
@@ -38,30 +38,30 @@ const recipes = [
         "servings": 2,
         "ingredients": [
             {
-                "ingredient" : "Thon Rouge (ou blanc)",
-                "quantity" : 200,
-                "unit" : "g"
+                "ingredient": "Thon Rouge (ou blanc)",
+                "quantity": 200,
+                "unit": "g"
             },
             {
-                "ingredient" : "Concombre",
-                "quantity" : 1
+                "ingredient": "Concombre",
+                "quantity": 1
             },
             {
-                "ingredient" : "Tomate",
-                "quantity" : 2
+                "ingredient": "Tomate",
+                "quantity": 2
             },
             {
-                "ingredient" : "Carotte",
-                "quantity" : 1
+                "ingredient": "Carotte",
+                "quantity": 1
             },
             {
-                "ingredient" : "Citron Vert",
-                "quantity" : 5
+                "ingredient": "Citron Vert",
+                "quantity": 5
             },
             {
-                "ingredient" : "Lait de Coco",
-                "quantity" : 100,
-                "unit" : "ml"
+                "ingredient": "Lait de Coco",
+                "quantity": 100,
+                "unit": "ml"
             }
         ],
         "time": 60,
@@ -75,21 +75,21 @@ const recipes = [
         "ingredients": [
             {
                 "ingredient": "Poulet",
-                "quantity" : 1          
+                "quantity": 1          
             },
             {
                 "ingredient": "Lait de coco",
-                "quantity" : 400,
-                "unit" : "ml"
+                "quantity": 400,
+                "unit": "ml"
             },
             {
                 "ingredient": "Coulis de tomate",
-                "quantity" : 25,
-                "unit" : "cl"
+                "quantity": 25,
+                "unit": "cl"
             },
             {
                 "ingredient": "Oignon",
-                "quantity" : 1
+                "quantity": 1
             },
             {
                 "ingredient": "Poivron rouge",
@@ -419,8 +419,8 @@ const recipes = [
             },
             {
                 "ingredient": "Eau",
-                "quantity" : "0.5",
-                "unit" : "tasses"
+                "quantity": "0.5",
+                "unit": "tasses"
             }
         ],
         "time": 40,
@@ -454,7 +454,7 @@ const recipes = [
                 "unit":"cuillère à soupe"
             },
             {
-                "ingredient": "huile d'olive",
+                "ingredient": "Huile d'olive",
                 "quantity": 2,
                 "unit": "cuillère à soupe"
             }
@@ -569,7 +569,7 @@ const recipes = [
                 "unit":"tiges"
             },
             {
-                "ingredient": "huile d'olives",
+                "ingredient": "Huile d'olives",
                 "quantity": 2,
                 "unit": "cuillère à soupe"
             }
@@ -695,7 +695,7 @@ const recipes = [
                 "unit":"g"
             },
             {
-                "ingredient": "huile d'olive",
+                "ingredient": "Huile d'olive",
                 "quantity": 1,
                 "unit": " cuillères à soupe"
             }
@@ -736,7 +736,7 @@ const recipes = [
             },
             {
                 "ingredient": "Crème Frache",
-                "quantity" : 1,
+                "quantity": 1,
                 "unit": " cuillères à soupe"
             }
         ],
@@ -1438,7 +1438,7 @@ const recipes = [
             {
                 "ingredient": "Poires au jus",
                 "quantity": 0.5,
-                "unit" : "boites"
+                "unit": "boites"
             },
             {
                 "ingredient": "Boudoirs",

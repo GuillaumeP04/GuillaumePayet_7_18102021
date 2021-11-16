@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/fontawesome.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="/css/main.css">
-    <title>Les petits plats</title>
-</head>
-<body>
-    <header>
-        <a href="index.html"><img src="/images/les-petits-plats.jpg" alt="Les petits plats" id="logo"></a>
-        <nav>
-            <div id="search--wrapper">
-                <input type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" id="search--bar">
-                <a class="fas fa-search" id="search" href="#"></a>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/fontawesome.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="/css/main.css">
+        <title>Les petits plats</title>
+    </head>
+    <body>
+        <header>
+            <a href="index.html"><img src="/images/les-petits-plats.jpg" alt="Les petits plats" id="logo"></a>
+            <nav>
+                <div id="search--wrapper">
+                    <input type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" id="search--bar">
+                    <a class="fas fa-search" id="search" href="#"></a>
+                </div>
+            </nav>
+            <div class="selected--items">
             </div>
-        </nav>
-        <div id="dropdown--wrapper">
-            <div class="dropdown">
-                <input class="dropbtn filter ingredients--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="ingredients" placeholder="Ingrédients">
-                <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
-                <div class="dropdown--content__wrapper" id="ingredients"></div>
-                <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+            <div id="dropdown--wrapper">
+                <div class="dropdown">
+                    <input class="dropbtn ingredients--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="ingredients" placeholder="Ingrédients">
+                    <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
+                    <div class="dropdown--content__wrapper" id="ingredients"></div>
+                    <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+                </div>
+                <div class="dropdown">
+                    <input class="dropbtn appareil--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="appareil" placeholder="Appareil">
+                    <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
+                    <div class="dropdown--content__wrapper" id="appareil"></div>
+                    <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+                </div>
+                <div class="dropdown">
+                    <input class="dropbtn ustensiles--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="ustensiles" placeholder="Ustensiles">
+                    <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
+                    <div class="dropdown--content__wrapper" id="ustensiles"></div>
+                    <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+                </div>
             </div>
-            <div class="dropdown">
-                <input class="dropbtn filter appareil--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="appareil" placeholder="Appareil">
-                <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
-                <div class="dropdown--content__wrapper" id="appareil"></div>
-                <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
-            </div>
-            <div class="dropdown">
-                <input class="dropbtn filter ustensiles--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="ustensiles" placeholder="Ustensiles">
-                <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
-                <div class="dropdown--content__wrapper" id="ustensiles"></div>
-                <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
-            </div>
-        </div>
-    </header>
-    <main id="main--wrapper"></main>
-    <script src="/javascript/recipes.js"></script>
-    <script src="/javascript/main.js" type="module"></script>
-</body>
+        </header>
+        <main id="main--wrapper"></main>
+        <script src="/javascript/recipes.js"></script>
+        <script src="/javascript/main.js" type="module"></script>
+    </body>
 </html>

@@ -104,14 +104,13 @@ a {
     display: none;
     position: absolute;
     margin-top: -3px;
-    width: 850px; 
     max-height: 800px;
     overflow: hidden;
     z-index: 1;
     color: white;
     padding: 12px 16px;
     cursor: pointer;
-    border-radius: 0px 5px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
 }
 
 .dropdown--content {
@@ -127,6 +126,7 @@ a {
 #ingredients {
     background: #3282F7;
     min-width: 500px;
+    width: 850px;
 }
 
 .appareil--button {
@@ -136,7 +136,7 @@ a {
 
 #appareil {
     background: #68D9A4;
-    min-width: 300px;
+    min-width: 500px;
     max-height: 150px;
 }
 
@@ -147,7 +147,7 @@ a {
 
 #ustensiles {
     background: #ED6454;
-    min-width: 450px;
+    min-width: 500px;
     height: 225px;
 }
 
@@ -158,8 +158,20 @@ a {
     flex-wrap: wrap;
 }
 
-.dropdown:focus-within .dropbtn{
-    width: 800px;
+.dropdown:focus-within .ingredients--button{
+    max-width: 845px;
+    transition: 0.5s;
+}
+
+.dropdown:focus-within .appareil--button{
+    max-width: 500px;
+    width: 500px;
+    transition: 0.5s;
+}
+
+.dropdown:focus-within .ustensiles--button{
+    max-width: 500px;
+    transition: 0.5s;
 }
 
 .dropdown:focus-within .arrow--down {
@@ -168,6 +180,30 @@ a {
 
 .dropdown:focus-within .arrow--up {
     display: block;
+    position: absolute;
+    right: 0px;
+}
+
+.filter {
+    color: white;
+}
+
+.selected--items {
+    margin-top: 15px;
+}
+
+.selected--ingredients {
+    color: white;
+    background-color: #3282F7;
+    border-radius: 5px;
+    padding: 5px 20px 5px 10px;
+    margin-right: 10px;
+}
+
+.close--selection {
+    position: relative;
+    left: 10px;
+    cursor: pointer;
 }
 
 #main--wrapper {

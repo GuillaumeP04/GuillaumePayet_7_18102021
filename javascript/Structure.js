@@ -5,13 +5,13 @@ class Structure {
     }
     
     display() {
-        this.displayRecipe();
+        this.displayRecipe(recipes);
         this.displayIngredients();
         this.displayAppareil();
         this.displayUstensiles();
     }
 
-    displayRecipe() {
+    displayRecipe(recipes) {
         let html = " ";
         recipes.forEach(recipe => {
             html += this.renderRecipe(recipe);
@@ -61,7 +61,7 @@ class Structure {
             })
         })
         ingredientList.forEach(item => {
-            html += `<a class="dropdown--content filter">${item}</a>`
+            html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
         })
         document.querySelector("#ingredients").innerHTML = html;
     }
