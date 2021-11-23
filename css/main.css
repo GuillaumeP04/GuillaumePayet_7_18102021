@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'Lato';
-    src: url(https://fonts.googleapis.com/css?family=Lato);
+    font-family: "Lato";
+    src: url("./fonts/Lato-Regular.ttf");
 }
 
 body {
     padding: 50px;
-    font-family: 'Lato', serif;
+    font-family: "Lato", serif;
 }
 
 a {
@@ -186,6 +186,7 @@ a {
 
 .filter {
     color: white;
+    text-transform: capitalize;
 }
 
 .selected--items {

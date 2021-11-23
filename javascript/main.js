@@ -1,11 +1,17 @@
-import Structure from "./Structure.js";
+import List from "./List.js";
 import Ingredients from "./Ingredients.js";
+import Recipe from "./Recipe.js";
 
-let structure = new Structure();
+let list = new List();
+let ingredients = new Ingredients(list);
+let recipe = new Recipe(recipes);
 
-structure.display();
+list.hydrate();
+list.display();
 
-let ingredients = new Ingredients();
 
 ingredients.hydrate();
-ingredients.listenForFilter();
+ingredients.display().then(() => {
+    ingredients.listenForFilter();
+    // ingredients.listenForSelection();
+})

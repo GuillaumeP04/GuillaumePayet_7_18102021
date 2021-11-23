@@ -1,56 +1,70 @@
-import Structure from "./Structure.js";
+import List from "./List.js";
 
 class Ingredients {
 
     constructor() {
-        this.all = new Set();
+        this.all = [];
         this.selection = new Set();
+        this.filtered = new Set();
+        this.search = "";
     }
 
-    build() {
-        this.filterIngredients(search);
-        this.selectedIngredient();
+    display() {
+        return new Promise((resolve, reject) => {
+            let html = " ";
+            this.filtered.forEach(item => {
+                html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
+            })
+            document.querySelector("#ingredients").innerHTML = html;
+            resolve();
+        })
     }
 
     hydrate() {
         recipes.forEach(recipe => {
             recipe.ingredients.forEach(item => {
-                this.all.add(item.ingredient);
+                if (!this.all.includes(item.ingredient)) {
+                    this.all.push(item.ingredient);
+                }
+                if (!this.filtered.has(item.ingredient)) {
+                    this.filtered.add(item.ingredient);
+                }
             })
         })
     }
 
     listenForFilter() {
         document.querySelector(".ingredients--button").addEventListener("input", (e) => {
-            let search = e.target.value;
-            this.filterIngredients(search)
+            this.search = e.target.value;
+            this.filterIngredients();
+            this.display();
+            this.listenForSelection();
         })
-        this.selectedIngredient();
     }
 
-    filterIngredients(search) {
-        let list = new Set();
-        let html = " ";
-        if (search.length > 0) {
-            this.all.forEach(item => {
-                item = item.toLowerCase();
-                item = item.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-                if (item.indexOf(search) > -1) {
-                    list.add(item);
-                }
-            })
-            list.forEach(item => {
-                item = item.charAt(0).toUpperCase() + item.slice(1);
-                html += `<a href="#" class="dropdown--content filter" ingredient="${item}">${item}</a>`
-            })
-        } else {
-            this.all.forEach(item => {
-                html += `<a href="#" class="dropdown--content filter" ingredient="${item}">${item}</a>`
-            })
+    filterIngredients() {
+        if (this.search.length < 1) {
+            return true;
         }
-        document.querySelector("#ingredients").innerHTML = html;
-        this.selectedIngredient();
+        this.filtered = this.all.filter(item => {
+            item = item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            if (item.indexOf(this.search) > -1) {
+                return !!(item.indexOf(this.search) > -1);
+            } 
+        })
     }
+
+    // filterIngredients() {
+    //     let html = " ";
+    //     this.filtered = this.all.filter(item => {
+    //         item = item.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    //         if (this.search.length < 1) {
+    //             html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`;
+    //         } else if (item.indexOf(this.search) > -1 == true) {
+    //             html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`;
+    //         }
+    //     })
+    // }
 
     displaySelectedIngredient() {
         let selected = " ";
@@ -60,13 +74,14 @@ class Ingredients {
         document.querySelector(".selected--items").innerHTML = selected;
     }
 
-    selectedIngredient() {
+    listenForSelection() {
         let items = document.querySelectorAll(".filter");
         items.forEach(item => {
             item.addEventListener("click", (e) => {
                 e.preventDefault();
-                let selectedItem = e.target.getAttribute("ingredient");
+                let selectedItem = e.target.getAttribute("id");
                 this.selection.add(selectedItem);
+                console.log(this.selection);
                 this.displaySelectedIngredient();
                 document.querySelector(".ingredients--button").value = "";
                 this.closeSelection(selectedItem);
@@ -86,18 +101,16 @@ class Ingredients {
     }
 
     filterRecipe() {
-        let list = recipes;
-        let structure =  new Structure();
+        let element;
         if (this.selection.size == 0) {
-            structure.displayRecipe(list);
             return true;
         }
-        list = recipes.filter(recipe => {
+        element = recipes.filter(recipe => {
             let keep = false; 
             recipe.ingredients.forEach(item => {
                 this.selection.forEach(el => {
-                    console.log(item.ingredient);
                     if (el == item.ingredient) {
+                        console.log(el);
                         keep =  true;
                     } else {
                         keep = false;
@@ -106,8 +119,7 @@ class Ingredients {
             });
             return keep;
         });
-        structure.displayRecipe(list);
-        this.build();
+        console.log(element)
     }
 }
 export default Ingredients;
