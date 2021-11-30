@@ -1,12 +1,11 @@
-import List from "./List.js";
-
 class Ingredients {
 
-    constructor() {
+    constructor(list) {
         this.all = [];
         this.selection = new Set();
         this.filtered = new Set();
         this.search = "";
+        this.list = list;
     }
 
     display() {
@@ -20,13 +19,31 @@ class Ingredients {
         })
     }
 
-    hydrate() {
-        recipes.forEach(recipe => {
+    filterIngredients() {
+        if (this.search.length < 1) {
+            this.display();
+        }
+        this.filtered = this.all.filter(item => {
+            item = item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            if (item.indexOf(this.search) > -1) {
+                return !!(item.indexOf(this.search) > -1);
+            } 
+        })
+        this.display(this.filtered);
+    }
+
+    build() {
+        this.display().then(() => {
+            this.listenForFilter();
+            this.listenForSelection();
+        })
+    }
+
+    collect(recipes) {
+        recipes = this.list.all.forEach(recipe => {
             recipe.ingredients.forEach(item => {
                 if (!this.all.includes(item.ingredient)) {
                     this.all.push(item.ingredient);
-                }
-                if (!this.filtered.has(item.ingredient)) {
                     this.filtered.add(item.ingredient);
                 }
             })
@@ -37,34 +54,9 @@ class Ingredients {
         document.querySelector(".ingredients--button").addEventListener("input", (e) => {
             this.search = e.target.value;
             this.filterIngredients();
-            this.display();
-            this.listenForSelection();
+            this.build();
         })
     }
-
-    filterIngredients() {
-        if (this.search.length < 1) {
-            return true;
-        }
-        this.filtered = this.all.filter(item => {
-            item = item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-            if (item.indexOf(this.search) > -1) {
-                return !!(item.indexOf(this.search) > -1);
-            } 
-        })
-    }
-
-    // filterIngredients() {
-    //     let html = " ";
-    //     this.filtered = this.all.filter(item => {
-    //         item = item.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-    //         if (this.search.length < 1) {
-    //             html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`;
-    //         } else if (item.indexOf(this.search) > -1 == true) {
-    //             html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`;
-    //         }
-    //     })
-    // }
 
     displaySelectedIngredient() {
         let selected = " ";
@@ -81,45 +73,54 @@ class Ingredients {
                 e.preventDefault();
                 let selectedItem = e.target.getAttribute("id");
                 this.selection.add(selectedItem);
-                console.log(this.selection);
                 this.displaySelectedIngredient();
                 document.querySelector(".ingredients--button").value = "";
-                this.closeSelection(selectedItem);
-                this.filterRecipe();
+                this.listenForUnselect();
+                this.filterRecipe(this.list.filtered);
+                this.list.display();
+
+                this.collect(this.list.filtered);
+                this.build();
             });
         })
     }
 
-    closeSelection(selectedItem) {
-        let close = document.querySelector(`.close--selection[id="${selectedItem}"]`);
-        close.addEventListener("click", () => {
-            close.closest(".selected").style.display = "none";
-            if (this.selection.has(selectedItem)) {
-                this.selection.delete(selectedItem);
-            }
+    listenForUnselect() {
+        let buttons = document.querySelectorAll(".close--selection");
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                let tag = button.getAttribute("id")
+                button.closest(".selected").style.display = "none";
+                if (this.selection.has(tag)) {
+                    this.selection.delete(tag);
+                }
+
+                this.filterRecipe(this.list.all);
+                this.list.display();
+
+                this.collect(this.list.filtered);
+                this.build();
+            });
         });
     }
 
-    filterRecipe() {
-        let element;
+    filterRecipe(recipes) {
         if (this.selection.size == 0) {
+            this.list.display();
             return true;
         }
-        element = recipes.filter(recipe => {
-            let keep = false; 
+        this.list.filtered = recipes.filter(recipe => {
+            let count = 0;
             recipe.ingredients.forEach(item => {
                 this.selection.forEach(el => {
                     if (el == item.ingredient) {
-                        console.log(el);
-                        keep =  true;
-                    } else {
-                        keep = false;
-                    }
+                        count++;
+                        return true;
+                    } 
                 });
             });
-            return keep;
+            return count;
         });
-        console.log(element)
     }
 }
 export default Ingredients;

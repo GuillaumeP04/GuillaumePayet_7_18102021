@@ -1,7 +1,6 @@
 class Recipe {
 
     constructor(data) {
-        this.all = data;
         this.id = data.id; 
         this.name = data.name; 
         this.servings = data.servings; 
@@ -13,14 +12,14 @@ class Recipe {
     }
 
     render() {
-        let ingredients = " ";
-        this.all.ingredients.forEach(item => {
+        let element = " ";
+        this.ingredients.forEach(item => {
             if (item.quantity == undefined) {
-                ingredients += `<p><strong>${item.ingredient}</strong></p>`;
+                element += `<p><strong>${item.ingredient}</strong></p>`;
             } else if (item.unit == undefined) {
-                ingredients += `<p><strong>${item.ingredient}</strong>: ${item.quantity}</p>`;
+                element += `<p><strong>${item.ingredient}</strong>: ${item.quantity}</p>`;
             } else {
-                ingredients += `<p><strong>${item.ingredient}</strong>: ${item.quantity}${item.unit}</p>`;
+                element += `<p><strong>${item.ingredient}</strong>: ${item.quantity}${item.unit}</p>`;
             }
         })
         return `
@@ -33,7 +32,7 @@ class Recipe {
                 </div>
                 <div class="div--wrapper">
                     <div class="ingredients--wrapper">
-                        ${ingredients}
+                        ${element}
                     </div>
                     <div class="description--wrapper">
                         <p>${this.description}</p>
