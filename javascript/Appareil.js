@@ -1,4 +1,4 @@
-class Ingredients {
+class Appareil {
 
     constructor(list) {
         this.all = [];
@@ -6,17 +6,15 @@ class Ingredients {
         this.filtered = new Set();
         this.search = "";
         this.list = list;
-        this.type = "ingredients";
+        this.type = "appareil";
         this.dropdownMenu();
     }
 
     collect() {
         this.list.all.forEach(recipe => {
-            recipe.ingredients.forEach(item => {
-                if (!this.all.includes(item.ingredient)) {
-                    this.all.push(item.ingredient);
-                }
-            })
+            if (!this.all.includes(recipe.appliance)) {
+                this.all.push(recipe.appliance);
+            }
         })
     }
 
@@ -50,7 +48,7 @@ class Ingredients {
     dropdownMenu() {
         document.querySelector(".dropdown--wrapper").innerHTML = `
         <div class="dropdown">
-            <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
+            <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Appareil">
             <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
             <div class="dropdown--content__wrapper" id="${this.type}"></div>
             <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
@@ -59,9 +57,6 @@ class Ingredients {
     }
 
     filter() {
-        if (this.selection.size > 0) {
-            console.log(this.filtered)
-        }
         if (this.search.length < 1) {
             this.filtered = this.all;
         } 
@@ -80,21 +75,20 @@ class Ingredients {
             this.list.display();
             return true;
         }
+
         this.list.filtered = recipes.filter(recipe => {
             let count = 0;
-            recipe.ingredients.forEach(item => {
-                this.selection.forEach(el => {
-                    if (el == item.ingredient) {
-                        count++;
-                    } 
-                });
+            this.selection.forEach(item => {
+                if (item == recipe.appliance) {
+                    count++;
+                    return true;
+                } 
             });
             if (count == this.selection.size) {
                 return true;
             }
             return false;
         });
-
     }
 
     listenForFilter() {
@@ -118,7 +112,7 @@ class Ingredients {
                 this.filterRecipe(this.list.filtered);
                 this.collect();
                 this.list.display();
-
+                
                 this.build();
             });
         })
@@ -141,4 +135,4 @@ class Ingredients {
         });
     }
 }
-export default Ingredients;
+export default Appareil;
