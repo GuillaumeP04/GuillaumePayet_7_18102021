@@ -48,7 +48,7 @@ class Ingredients {
     }
 
     dropdownMenu() {
-        document.querySelector(".dropdown--wrapper").innerHTML = `
+        document.querySelector(".dropdown--wrapper").innerHTML += `
         <div class="dropdown">
             <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
             <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
@@ -59,9 +59,6 @@ class Ingredients {
     }
 
     filter() {
-        if (this.selection.size > 0) {
-            console.log(this.filtered)
-        }
         if (this.search.length < 1) {
             this.filtered = this.all;
         } 
@@ -74,13 +71,13 @@ class Ingredients {
         this.display();
     }
 
-    filterRecipe(recipes) {
+    filterRecipe() {
         if (this.selection.size == 0) {
             this.list.filtered = this.list.all;
             this.list.display();
             return true;
         }
-        this.list.filtered = recipes.filter(recipe => {
+        this.list.filtered = this.list.filtered.filter(recipe => {
             let count = 0;
             recipe.ingredients.forEach(item => {
                 this.selection.forEach(el => {
@@ -94,7 +91,6 @@ class Ingredients {
             }
             return false;
         });
-
     }
 
     listenForFilter() {
@@ -115,7 +111,7 @@ class Ingredients {
                 this.displaySelection();
                 document.querySelector(`.${this.type}--button`).value = "";
                 this.listenForUnselect();
-                this.filterRecipe(this.list.filtered);
+                this.filterRecipe();
                 this.collect();
                 this.list.display();
 
@@ -133,7 +129,7 @@ class Ingredients {
                 if (this.selection.has(tag)) {
                     this.selection.delete(tag);
                 }
-                this.filterRecipe(this.list.all);
+                this.filterRecipe();
                 this.collect();
                 this.list.display();
                 this.build();

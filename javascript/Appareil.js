@@ -46,7 +46,7 @@ class Appareil {
     }
 
     dropdownMenu() {
-        document.querySelector(".dropdown--wrapper").innerHTML = `
+        document.querySelector(".dropdown--wrapper").innerHTML += `
         <div class="dropdown">
             <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Appareil">
             <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>

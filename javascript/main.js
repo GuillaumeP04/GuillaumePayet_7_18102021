@@ -6,7 +6,7 @@ import Ustensiles from "./Ustensiles.js"
 let list = new List();
 let ingredients = new Ingredients(list);
 let appareil = new Appareil(list);
-let ustensiles = new Ustensiles(list);
+// let ustensiles = new Ustensiles(list);
 
 list.hydrate();
 list.display();
@@ -17,5 +17,5 @@ ingredients.build();
 appareil.collect();
 appareil.build();
 
-ustensiles.collect();
-ustensiles.build();
+// ustensiles.collect();
+// ustensiles.build();

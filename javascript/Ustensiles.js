@@ -6,12 +6,12 @@ class Ustensiles {
         this.filtered = new Set();
         this.search = "";
         this.list = list;
-        this.type = "appareil";
+        this.type = "ustensiles";
         this.dropdownMenu();
     }
 
     collect() {
-        this.list.all.forEach(recipe => {
+        this.list.filtered.forEach(recipe => {
             recipe.ustensils.forEach(item => {
                 if (!this.all.includes(item)) {
                     this.all.push(item);
@@ -48,7 +48,7 @@ class Ustensiles {
     }
 
     dropdownMenu() {
-        document.querySelector(".dropdown--wrapper").innerHTML = `
+        document.querySelector(".dropdown--wrapper").innerHTML += `
         <div class="dropdown">
             <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ustensiles">
             <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
@@ -83,7 +83,6 @@ class Ustensiles {
             this.selection.forEach(item => {
                 if (item == recipe.ustensils) {
                     count++;
-                    return true;
                 } 
             });
             if (count == this.selection.size) {
