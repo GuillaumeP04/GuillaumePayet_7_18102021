@@ -117,12 +117,12 @@ a {
     margin: 3px;
 }
 
-.ingredients--button {
+.ingredient--button {
     background: #3282F7;
     border: 1px solid #3282F7;
 }
 
-#ingredients {
+#ingredient {
     background: #3282F7;
     min-width: 500px;
     width: 850px;
@@ -157,7 +157,7 @@ a {
     flex-wrap: wrap;
 }
 
-.dropdown:focus-within .ingredients--button{
+.dropdown:focus-within .ingredient--button{
     max-width: 845px;
     transition: 0.5s;
 }
@@ -192,7 +192,7 @@ a {
     margin-top: 15px;
 }
 
-.selected--ingredients {
+.selected--ingredient {
     color: white;
     background-color: #3282F7;
     border-radius: 5px;
@@ -267,12 +267,12 @@ a {
     max-width: 70%;
 }
 
-.ingredients--wrapper {
+.ingredient--wrapper {
     width: 45%;
     height: 125px;
 }
 
-.ingredients--wrapper p {
+.ingredient--wrapper p {
     margin: 2px 0px 2px 0px;
 }
 

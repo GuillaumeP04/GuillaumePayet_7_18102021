@@ -31,7 +31,7 @@ class Recipe {
                     <p class="time"><strong><i class="far fa-clock"></i> ${this.time} min</strong></p>
                 </div>
                 <div class="div--wrapper">
-                    <div class="ingredients--wrapper">
+                    <div class="ingredient--wrapper">
                         ${element}
                     </div>
                     <div class="description--wrapper">

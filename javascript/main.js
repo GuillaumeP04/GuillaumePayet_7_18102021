@@ -1,21 +1,21 @@
 import List from "./List.js";
-import Ingredients from "./Ingredients.js";
-import Appareil from "./Appareil.js";
-import Ustensiles from "./Ustensiles.js"
+import Ingredient from "./Ingredient.js";
+// import Appareil from "./Appareil.js";
+// import Ustensiles from "./Ustensiles.js"
 
 let list = new List();
-let ingredients = new Ingredients(list);
-let appareil = new Appareil(list);
+let ingredient = new Ingredient(list);
+// let appareil = new Appareil(list);
 // let ustensiles = new Ustensiles(list);
 
 list.hydrate();
 list.display();
 
-ingredients.collect();
-ingredients.build();
+ingredient.start();
+ingredient.build();
 
-appareil.collect();
-appareil.build();
+// appareil.collect();
+// appareil.build();
 
 // ustensiles.collect();
 // ustensiles.build();

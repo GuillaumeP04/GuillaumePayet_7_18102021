@@ -1,27 +1,29 @@
-class Ingredients {
+class Ingredient {
 
     constructor(list) {
         this.all = [];
+        this.filtered = [];
+        this.displayed = [];
         this.selection = new Set();
-        this.filtered = new Set();
         this.search = "";
-        this.list = list;
-        this.type = "ingredients";
+        this.recipes = list;
+        this.type = "ingredient";
         this.dropdownMenu();
     }
 
     collect() {
-        this.list.all.forEach(recipe => {
+        this.filtered = [];
+        this.recipes.all.forEach(recipe => {
             recipe.ingredients.forEach(item => {
-                if (!this.all.includes(item.ingredient)) {
-                    this.all.push(item.ingredient);
+                if (!this.filtered.includes(item.ingredient)) {
+                    this.filtered.push(item.ingredient);
                 }
             })
         })
+        this.displayed = this.filtered;
     }
-
+    
     build() {
-        this.filtered = this.all;
         this.display().then(() => {
             this.listenForFilter();
             this.listenForSelection();
@@ -31,38 +33,36 @@ class Ingredients {
     display() {
         return new Promise((resolve, reject) => {
             let html = "";
-            this.filtered.forEach(item => {
-                html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
+            
+            this.displayed.forEach(item => {
+                html += `<a href="#" class="dropdown--content filter--${this.type} filter" id="${item}">${item}</a>`
             })
             document.querySelector(`#${this.type}`).innerHTML = html;
             resolve();
         })
     }
-
+    
     displaySelection() {
         let selected = "";
         this.selection.forEach(item => {
             selected += `<span class="selected--${this.type} selected" >${item}<a class="far fa-times-circle close--selection" id="${item}"></a></span>`;
         })
-        document.querySelector(".selected--items").innerHTML = selected;
+        document.querySelector(`#selected--${this.type}`).innerHTML = selected;
     }
-
+    
     dropdownMenu() {
         document.querySelector(".dropdown--wrapper").innerHTML += `
         <div class="dropdown">
-            <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
-            <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
-            <div class="dropdown--content__wrapper" id="${this.type}"></div>
-            <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+        <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
+        <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
+        <div class="dropdown--content__wrapper" id="${this.type}"></div>
+        <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
         </div>
         `
     }
-
+    
     filter() {
-        if (this.search.length < 1) {
-            this.filtered = this.all;
-        } 
-        this.filtered = this.all.filter(item => {
+        this.displayed = this.filtered.filter(item => {
             item = item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
             if (item.indexOf(this.search) > -1) {
                 return !!(item.indexOf(this.search) > -1);
@@ -71,13 +71,13 @@ class Ingredients {
         this.display();
     }
 
-    filterRecipe() {
+    filterRecipe(recipes) {
         if (this.selection.size == 0) {
-            this.list.filtered = this.list.all;
-            this.list.display();
+            this.recipes.filtered = this.recipes.all;
+            this.recipes.display();
             return true;
         }
-        this.list.filtered = this.list.filtered.filter(recipe => {
+        this.recipes.filtered = recipes.filter(recipe => {
             let count = 0;
             recipe.ingredients.forEach(item => {
                 this.selection.forEach(el => {
@@ -86,10 +86,7 @@ class Ingredients {
                     } 
                 });
             });
-            if (count == this.selection.size) {
-                return true;
-            }
-            return false;
+            return !!(count == this.selection.size);
         });
     }
 
@@ -102,7 +99,7 @@ class Ingredients {
     }
 
     listenForSelection() {
-        let items = document.querySelectorAll(".filter");
+        let items = document.querySelectorAll(`.filter--${this.type}`);
         items.forEach(item => {
             item.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -111,9 +108,9 @@ class Ingredients {
                 this.displaySelection();
                 document.querySelector(`.${this.type}--button`).value = "";
                 this.listenForUnselect();
-                this.filterRecipe();
+                this.filterRecipe(this.recipes.filtered);
                 this.collect();
-                this.list.display();
+                this.recipes.display();
 
                 this.build();
             });
@@ -129,12 +126,18 @@ class Ingredients {
                 if (this.selection.has(tag)) {
                     this.selection.delete(tag);
                 }
-                this.filterRecipe();
+                this.filterRecipe(this.recipes.all);
                 this.collect();
-                this.list.display();
+                this.recipes.display();
                 this.build();
             });
         });
     }
+
+    start() {
+        this.collect();
+        // this.displayed = this.all = this.filtered;
+        document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
+    }
 }
-export default Ingredients;
+export default Ingredient;
