@@ -5,6 +5,22 @@ class List {
     constructor() {
         this.all = [];
         this.filtered = [];
+        this.filters = [];
+    }
+
+    addFilter(filter) {
+        this.filters.push(filter);
+        filter.start();
+        filter.build();
+    }
+
+    updateFilter() {
+        this.filters.forEach(filter => {
+            filter.collect;
+            this.display();
+            filter.build();
+            filter.listenForUnselect();
+        })
     }
     
     hydrate() {

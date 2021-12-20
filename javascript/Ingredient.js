@@ -13,7 +13,7 @@ class Ingredient {
 
     collect() {
         this.filtered = [];
-        this.recipes.all.forEach(recipe => {
+        this.recipes.filtered.forEach(recipe => {
             recipe.ingredients.forEach(item => {
                 if (!this.filtered.includes(item.ingredient)) {
                     this.filtered.push(item.ingredient);
@@ -33,7 +33,6 @@ class Ingredient {
     display() {
         return new Promise((resolve, reject) => {
             let html = "";
-            
             this.displayed.forEach(item => {
                 html += `<a href="#" class="dropdown--content filter--${this.type} filter" id="${item}">${item}</a>`
             })
@@ -136,7 +135,6 @@ class Ingredient {
 
     start() {
         this.collect();
-        // this.displayed = this.all = this.filtered;
         document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
     }
 }

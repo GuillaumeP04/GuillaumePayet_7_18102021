@@ -2,24 +2,26 @@ class Appareil {
 
     constructor(list) {
         this.all = [];
+        this.filtered = [];
+        this.displayed = [];
         this.selection = new Set();
-        this.filtered = new Set();
         this.search = "";
-        this.list = list;
+        this.recipes = list;
         this.type = "appareil";
         this.dropdownMenu();
     }
 
     collect() {
-        this.list.all.forEach(recipe => {
-            if (!this.all.includes(recipe.appliance)) {
-                this.all.push(recipe.appliance);
+        this.filtered = [];
+        this.recipes.filtered.forEach(recipe => {
+            if (!this.filtered.includes(recipe.appliance)) {
+                this.filtered.push(recipe.appliance);
             }
         })
+        this.displayed = this.filtered;
     }
 
     build() {
-        this.filtered = this.all;
         this.display().then(() => {
             this.listenForFilter();
             this.listenForSelection();
@@ -29,7 +31,7 @@ class Appareil {
     display() {
         return new Promise((resolve, reject) => {
             let html = "";
-            this.filtered.forEach(item => {
+            this.displayed.forEach(item => {
                 html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
             })
             document.querySelector(`#${this.type}`).innerHTML = html;
@@ -57,10 +59,7 @@ class Appareil {
     }
 
     filter() {
-        if (this.search.length < 1) {
-            this.filtered = this.all;
-        } 
-        this.filtered = this.all.filter(item => {
+        this.displayed = this.filtered.filter(item => {
             item = item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
             if (item.indexOf(this.search) > -1) {
                 return !!(item.indexOf(this.search) > -1);
@@ -71,12 +70,12 @@ class Appareil {
 
     filterRecipe(recipes) {
         if (this.selection.size == 0) {
-            this.list.filtered = this.list.all;
-            this.list.display();
+            this.recipes.filtered = this.recipes.all;
+            this.recipes.display();
             return true;
         }
 
-        this.list.filtered = recipes.filter(recipe => {
+        this.recipes.filtered = recipes.filter(recipe => {
             let count = 0;
             this.selection.forEach(item => {
                 if (item == recipe.appliance) {
@@ -109,9 +108,9 @@ class Appareil {
                 this.displaySelection();
                 document.querySelector(`.${this.type}--button`).value = "";
                 this.listenForUnselect();
-                this.filterRecipe(this.list.filtered);
+                this.filterRecipe(this.recipes.filtered);
                 this.collect();
-                this.list.display();
+                this.recipes.display();
                 
                 this.build();
             });
@@ -127,12 +126,17 @@ class Appareil {
                 if (this.selection.has(tag)) {
                     this.selection.delete(tag);
                 }
-                this.filterRecipe(this.list.all);
+                this.filterRecipe(this.recipes.all);
                 this.collect();
-                this.list.display();
+                this.recipes.display();
                 this.build();
             });
         });
+    }
+
+    start() {
+        this.collect();
+        document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
     }
 }
 export default Appareil;
