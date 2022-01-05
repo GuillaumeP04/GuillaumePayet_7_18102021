@@ -32,7 +32,7 @@ class Appareil {
         return new Promise((resolve, reject) => {
             let html = "";
             this.displayed.forEach(item => {
-                html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
+                html += `<a href="#" class="dropdown--content .filter--${this.type} filter" id="${item}">${item}</a>`
             })
             document.querySelector(`#${this.type}`).innerHTML = html;
             resolve();
@@ -75,7 +75,7 @@ class Appareil {
             return true;
         }
 
-        this.recipes.filtered = recipes.filter(recipe => {
+        return recipes.filter(recipe => {
             let count = 0;
             this.selection.forEach(item => {
                 if (item == recipe.appliance) {
@@ -83,10 +83,7 @@ class Appareil {
                     return true;
                 } 
             });
-            if (count == this.selection.size) {
-                return true;
-            }
-            return false;
+            return !!(count == this.selection.size);
         });
     }
 
@@ -99,7 +96,7 @@ class Appareil {
     }
 
     listenForSelection() {
-        let items = document.querySelectorAll(".filter");
+        let items = document.querySelectorAll(`.filter--${this.type}`);
         items.forEach(item => {
             item.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -111,7 +108,6 @@ class Appareil {
                 this.filterRecipe(this.recipes.filtered);
                 this.collect();
                 this.recipes.display();
-                
                 this.build();
             });
         })
@@ -136,7 +132,7 @@ class Appareil {
 
     start() {
         this.collect();
-        document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
+        document.querySelector(".selected--items").innerHTML += `<div id="selected--${this.type}"></div>`;
     }
 }
 export default Appareil;

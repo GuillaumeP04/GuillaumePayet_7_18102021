@@ -8,20 +8,27 @@ class List {
         this.filters = [];
     }
 
-    addFilter(filter) {
-        this.filters.push(filter);
-        filter.start();
-        filter.build();
-    }
+    // addFilters(filter) {
+    //     this.filters.push(filter);
+    //     filter.start();
+    //     filter.build();
+    // }
 
-    updateFilter() {
-        this.filters.forEach(filter => {
-            filter.collect;
-            this.display();
-            filter.build();
-            filter.listenForUnselect();
-        })
-    }
+    // updateFilters() {
+    //     this.filters.forEach(filter => {
+    //         filter.collect();
+    //         this.display();
+    //         filter.build();
+    //     })
+    // }
+
+    // filter() {
+    //     let list = this.all;
+    //     console.log(this.filters);
+    //     this.filters.forEach(filter => {
+    //         list = filter.filterRecipe(list)
+    //     })
+    // }
     
     hydrate() {
         recipes.forEach(item => {

@@ -33,7 +33,7 @@ class Ustensiles {
         return new Promise((resolve, reject) => {
             let html = "";
             this.displayed.forEach(item => {
-                html += `<a href="#" class="dropdown--content filter" id="${item}">${item}</a>`
+                html += `<a href="#" class="dropdown--content filter--${this.type} filter" id="${item}">${item}</a>`
             })
             document.querySelector(`#${this.type}`).innerHTML = html;
             resolve();
@@ -136,7 +136,7 @@ class Ustensiles {
 
     start() {
         this.collect();
-        document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
+        document.querySelector(".selected--items").innerHTML += `<div id="selected--${this.type}"></div>`;
     }
 }
 export default Ustensiles;

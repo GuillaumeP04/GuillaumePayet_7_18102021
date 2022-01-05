@@ -10,16 +10,17 @@ let appareil = new Appareil(list);
 
 list.hydrate();
 list.display();
-list.addFilter(ingredient);
-list.addFilter(appareil);
-// list.addFilter(ustensiles);
-list.updateFilter();
+// list.addFilters(ingredient);
+// list.addFilters(appareil);
+// // list.addFilter(ustensiles);
+// list.updateFilters();
+// list.display();
 
-// ingredient.start();
-// ingredient.build();
+ingredient.start();
+ingredient.build();
 
-// appareil.collect();
-// appareil.build();
+appareil.start();
+appareil.build();
 
-// ustensiles.collect();
+// ustensiles.start();
 // ustensiles.build();

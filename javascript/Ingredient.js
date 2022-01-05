@@ -72,11 +72,9 @@ class Ingredient {
 
     filterRecipe(recipes) {
         if (this.selection.size == 0) {
-            this.recipes.filtered = this.recipes.all;
-            this.recipes.display();
-            return true;
+            recipes = this.recipes.all;
         }
-        this.recipes.filtered = recipes.filter(recipe => {
+        return recipes.filter(recipe => {
             let count = 0;
             recipe.ingredients.forEach(item => {
                 this.selection.forEach(el => {
@@ -108,9 +106,10 @@ class Ingredient {
                 document.querySelector(`.${this.type}--button`).value = "";
                 this.listenForUnselect();
                 this.filterRecipe(this.recipes.filtered);
+                // this.recipes.updateFilters();
+
                 this.collect();
                 this.recipes.display();
-
                 this.build();
             });
         })
@@ -126,6 +125,8 @@ class Ingredient {
                     this.selection.delete(tag);
                 }
                 this.filterRecipe(this.recipes.all);
+                // this.recipes.updateFilters();
+
                 this.collect();
                 this.recipes.display();
                 this.build();
@@ -135,7 +136,7 @@ class Ingredient {
 
     start() {
         this.collect();
-        document.querySelector(".selected--items").innerHTML = `<div id="selected--${this.type}"></div>`;
+        document.querySelector(".selected--items").innerHTML += `<div id="selected--${this.type}"></div>`;
     }
 }
 export default Ingredient;
