@@ -1,4 +1,4 @@
-class Ustensiles {
+class Appareil {
 
     constructor(list) {
         this.all = [];
@@ -12,6 +12,7 @@ class Ustensiles {
     }
 
     collect() {
+        this.filtered = [];
         this.recipes.filtered.forEach(recipe => {
             recipe.ustensils.forEach(item => {
                 if (!this.filtered.includes(item)) {
@@ -23,9 +24,11 @@ class Ustensiles {
     }
 
     build() {
+        this.collect();
         this.display().then(() => {
             this.listenForFilter();
             this.listenForSelection();
+            this.listenForUnselect();
         })
     }
 
@@ -43,9 +46,9 @@ class Ustensiles {
     displaySelection() {
         let selected = "";
         this.selection.forEach(item => {
-            selected += `<span class="selected--${this.type} selected" >${item}<a class="far fa-times-circle close--selection" id="${item}"></a></span>`;
+            selected += `<span class="selected--${this.type} selected" >${item}<a class="far fa-times-circle close--selection__${this.type} close--selection" id="${item}"></a></span>`;
         })
-        document.querySelector(".selected--items").innerHTML = selected;
+        document.querySelector(`#selected--${this.type}`).innerHTML = selected;
     }
 
     dropdownMenu() {
@@ -69,25 +72,20 @@ class Ustensiles {
         this.display();
     }
 
-    filterRecipe(recipes) {
-        if (this.selection.size == 0) {
-            this.recipes.filtered = this.recipes.all;
-            this.recipes.display();
-            return true;
-        }
-
-        this.recipes.filtered = recipes.filter(recipe => {
-            let count = 0;
-            this.selection.forEach(item => {
-                if (item == recipe.ustensils) {
-                    count++;
-                } 
+    filterRecipes(recipes) {
+        if (this.selection.size > 0) {    
+            this.recipes.filtered = recipes.filter(recipe => {
+                let count = 0;
+                recipe.ingredients.forEach(item => {
+                    this.selection.forEach(el => {
+                        if (el == item) {
+                            count++;
+                        } 
+                    });
+                });
+                return !!(count == this.selection.size);
             });
-            if (count == this.selection.size) {
-                return true;
-            }
-            return false;
-        });
+        }
     }
 
     listenForFilter() {
@@ -107,18 +105,14 @@ class Ustensiles {
                 this.selection.add(selectedItem);
                 this.displaySelection();
                 document.querySelector(`.${this.type}--button`).value = "";
-                this.listenForUnselect();
-                this.filterRecipe(this.recipes.filtered);
-                this.collect();
+                this.recipes.filter();
                 this.recipes.display();
-
-                this.build();
             });
         })
     }
 
     listenForUnselect() {
-        let buttons = document.querySelectorAll(".close--selection");
+        let buttons = document.querySelectorAll(`.close--selection__${this.type}`);
         buttons.forEach(button => {
             button.addEventListener("click", () => {
                 let tag = button.getAttribute("id")
@@ -126,17 +120,15 @@ class Ustensiles {
                 if (this.selection.has(tag)) {
                     this.selection.delete(tag);
                 }
-                this.filterRecipe(this.recipes.all);
-                this.collect();
+                this.displaySelection();
+                this.recipes.filter(true);
                 this.recipes.display();
-                this.build();
             });
         });
     }
 
     start() {
-        this.collect();
         document.querySelector(".selected--items").innerHTML += `<div id="selected--${this.type}"></div>`;
     }
 }
-export default Ustensiles;
+export default Appareil;

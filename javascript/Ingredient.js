@@ -24,9 +24,11 @@ class Ingredient {
     }
     
     build() {
+        this.collect();
         this.display().then(() => {
             this.listenForFilter();
             this.listenForSelection();
+            this.listenForUnselect();
         })
     }
 
@@ -44,7 +46,7 @@ class Ingredient {
     displaySelection() {
         let selected = "";
         this.selection.forEach(item => {
-            selected += `<span class="selected--${this.type} selected" >${item}<a class="far fa-times-circle close--selection" id="${item}"></a></span>`;
+            selected += `<span class="selected--${this.type} selected" >${item}<a class="far fa-times-circle close--selection__${this.type} close--selection" id="${item}"></a></span>`;
         })
         document.querySelector(`#selected--${this.type}`).innerHTML = selected;
     }
@@ -52,10 +54,10 @@ class Ingredient {
     dropdownMenu() {
         document.querySelector(".dropdown--wrapper").innerHTML += `
         <div class="dropdown">
-        <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
-        <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
-        <div class="dropdown--content__wrapper" id="${this.type}"></div>
-        <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
+            <input class="dropbtn ${this.type}--button" role="button" aria-haspopup="listbox" aria-expanded="false" data-filter="${this.type}" placeholder="Ingrédients">
+            <a title="Dropdown Menu" href="#" class="arrow--down fas fa-chevron-down"></a>
+            <div class="dropdown--content__wrapper" id="${this.type}"></div>
+            <a title="Dropdown Menu" href="#" class="arrow--up fas fa-chevron-up"></a>
         </div>
         `
     }
@@ -70,21 +72,20 @@ class Ingredient {
         this.display();
     }
 
-    filterRecipe(recipes) {
-        if (this.selection.size == 0) {
-            recipes = this.recipes.all;
-        }
-        return recipes.filter(recipe => {
-            let count = 0;
-            recipe.ingredients.forEach(item => {
-                this.selection.forEach(el => {
-                    if (el == item.ingredient) {
-                        count++;
-                    } 
+    filterRecipes(recipes) {
+        if (this.selection.size > 0) {
+            this.recipes.filtered = recipes.filter(recipe => {
+                let count = 0;
+                recipe.ingredients.forEach(item => {
+                    this.selection.forEach(el => {
+                        if (el == item.ingredient) {
+                            count++;
+                        } 
+                    });
                 });
+                return !!(count == this.selection.size);
             });
-            return !!(count == this.selection.size);
-        });
+        }
     }
 
     listenForFilter() {
@@ -104,38 +105,31 @@ class Ingredient {
                 this.selection.add(selectedItem);
                 this.displaySelection();
                 document.querySelector(`.${this.type}--button`).value = "";
-                this.listenForUnselect();
-                this.filterRecipe(this.recipes.filtered);
-                // this.recipes.updateFilters();
-
-                this.collect();
+                this.recipes.filter();
                 this.recipes.display();
-                this.build();
             });
         })
     }
 
     listenForUnselect() {
-        let buttons = document.querySelectorAll(".close--selection");
+        let buttons = document.querySelectorAll(`.close--selection__${this.type}`);
         buttons.forEach(button => {
             button.addEventListener("click", () => {
+            console.log(123)        
+
                 let tag = button.getAttribute("id")
                 button.closest(".selected").style.display = "none";
                 if (this.selection.has(tag)) {
                     this.selection.delete(tag);
                 }
-                this.filterRecipe(this.recipes.all);
-                // this.recipes.updateFilters();
-
-                this.collect();
+                this.displaySelection();
+                this.recipes.filter(true);
                 this.recipes.display();
-                this.build();
             });
         });
     }
 
     start() {
-        this.collect();
         document.querySelector(".selected--items").innerHTML += `<div id="selected--${this.type}"></div>`;
     }
 }
