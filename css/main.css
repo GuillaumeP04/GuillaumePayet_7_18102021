@@ -70,6 +70,7 @@ a {
     max-width: 130px;
     text-align: left;
     border-radius: 5px;
+    text-transform: capitalize;
 }
 
 .dropbtn::placeholder {
