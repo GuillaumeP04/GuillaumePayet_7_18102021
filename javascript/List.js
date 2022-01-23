@@ -45,14 +45,24 @@ class List {
 
     listenForSearch() {
         document.getElementById("search--bar").addEventListener("input", (e) => {
-            this.searchInput = e.target.value.toLowerCase();
-            if (this.searchInput.length >= 3) {
-                if (this.searchInput.length == e.target.value.length) {
+            let newSearch = e.target.value;
+            let oldSearch = this.searchInput;
+            if (newSearch.length < 3) {
+                this.filtered = this.all;
+            }
+            if (newSearch.length >= 3) {
+                this.searchInput = newSearch.toLowerCase();
+                if (oldSearch.length < newSearch.length) {
                     this.search(this.filtered);
                 }
-            } else {
-                this.search(this.all);
+                else {
+                    this.search(this.all);
+                }
             }
+            this.display();
+            this.filters.forEach(filter => {
+                filter.build()
+            })
         })
     }
 
@@ -70,14 +80,8 @@ class List {
                 return true;
             } 
             else {
-                // document.querySelector("#main--wrapper").innerHTML = `Aucune recette ne correspond à votre critère… vous pouvez
-                // chercher tarte aux pommes, poisson , etc.`;
                 return false;
             }
-        })
-        this.display();
-        this.filters.forEach(filter => {
-            filter.build()
         })
     }
 }
