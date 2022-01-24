@@ -67,22 +67,21 @@ class List {
     }
 
     search(recipes) {
-        this.filtered = recipes.filter(recipe => {
-            recipe.ingredients.forEach(item => {
-                if (item.ingredient.toLowerCase().includes(this.searchInput)) {
-                    return true;
+        let filteredRecipes = [];
+        this.filtered = filteredRecipes;
+        for (let i = 0; i < recipes.length; i++) {
+            for (let ingredient of recipes[i].ingredients) {
+                if (ingredient.ingredient.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
+                    filteredRecipes.push(recipes[i]);
                 }
-            })
-            if (recipe.description.toLowerCase().includes(this.searchInput)) {
-                return true;
             }
-            if (recipe.name.toLowerCase().includes(this.searchInput)) {
-                return true;
+            if (recipes[i].name.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
+                filteredRecipes.push(recipes[i]);
             } 
-            else {
-                return false;
-            }
-        })
+            if (recipes[i].description.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
+                filteredRecipes.push(recipes[i]);
+            } 
+        }
     }
 }
 export default List;
