@@ -72,7 +72,7 @@ class List {
                 if (item.ingredient.toLowerCase().includes(this.searchInput)) {
                     return true;
                 }
-            })
+            });
             if (recipe.description.toLowerCase().includes(this.searchInput)) {
                 return true;
             }
