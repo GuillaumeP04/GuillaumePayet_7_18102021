@@ -24,7 +24,6 @@ class Recipe {
         })
         return `
         <div class="recipe--wrapper">
-            <img src="/images/grey.jpg" alt="" class="recipe--image">
             <div class="recipe--description">
                 <div class="title--wrapper">
                     <p class="title">${this.name}</p>

@@ -39,8 +39,12 @@ class List {
         let html = "";
         this.filtered.forEach(item => {
             html += item.render();
-        })
-        document.getElementById("main--wrapper").innerHTML = html;
+        });
+        if (this.filtered.length == 0) {
+            html = `<div class="error--message"> Aucune recette ne correspond à votre critère… vous pouvez
+            chercher « tarte aux pommes », « poisson », etc. </div>`;
+        }
+        document.querySelector(".main--wrapper").innerHTML = html;
     }
 
     listenForSearch() {
@@ -70,17 +74,21 @@ class List {
         let filteredRecipes = [];
         this.filtered = filteredRecipes;
         for (let i = 0; i < recipes.length; i++) {
-            for (let ingredient of recipes[i].ingredients) {
-                if (ingredient.ingredient.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
-                    filteredRecipes.push(recipes[i]);
+            let recipe = recipes[i];
+            if (recipe.name.toLowerCase().includes(this.searchInput)) {
+                filteredRecipes.push(recipe);
+                continue;
+            } 
+            if (recipe.description.toLowerCase().includes(this.searchInput)) {
+                filteredRecipes.push(recipe);
+                continue;
+            } 
+            for (let ingredient of recipe.ingredients) {
+                if (ingredient.ingredient.toLowerCase().includes(this.searchInput)) {
+                    filteredRecipes.push(recipe);
+                    continue;
                 }
             }
-            if (recipes[i].name.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
-                filteredRecipes.push(recipes[i]);
-            } 
-            if (recipes[i].description.toLowerCase().includes(this.searchInput) && !filteredRecipes.includes(recipes[i])) {
-                filteredRecipes.push(recipes[i]);
-            } 
         }
     }
 }
