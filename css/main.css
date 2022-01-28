@@ -84,7 +84,6 @@ a {
 .dropdown {
     position: relative;
     display: inline-block;
-    width: 170px;
     padding: 16px 16px 16px 0px;
     border-radius: 5px;
     cursor: pointer;
@@ -127,7 +126,7 @@ a {
     background: #3282F7;
     min-width: 500px;
     width: 555px;
-    height: 400px;
+    max-height: 400px;
 }
 
 .appareil--button {
@@ -149,7 +148,7 @@ a {
 #ustensiles {
     background: #ED6454;
     width: 555px;
-    height: 275px;
+    max-height: 275px;
 }
 
 .dropdown:focus-within .dropdown--content__wrapper{

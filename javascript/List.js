@@ -86,7 +86,7 @@ class List {
             else {
                 return false;
             }
-        })
+        });
     }
 }
 export default List;
