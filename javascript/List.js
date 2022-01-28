@@ -40,7 +40,11 @@ class List {
         this.filtered.forEach(item => {
             html += item.render();
         })
-        document.getElementById("main--wrapper").innerHTML = html;
+        if (this.filtered.length == 0) {
+            html = `<div class="error--message"> Aucune recette ne correspond à votre critère… vous pouvez
+            chercher « tarte aux pommes », « poisson », etc. </div>`;
+        }
+        document.querySelector(".main--wrapper").innerHTML = html;
     }
 
     listenForSearch() {

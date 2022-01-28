@@ -126,7 +126,8 @@ a {
 #ingredient {
     background: #3282F7;
     min-width: 500px;
-    width: 850px;
+    width: 555px;
+    height: 400px;
 }
 
 .appareil--button {
@@ -136,7 +137,7 @@ a {
 
 #appareil {
     background: #68D9A4;
-    min-width: 500px;
+    width: 555px;
     max-height: 150px;
 }
 
@@ -147,8 +148,8 @@ a {
 
 #ustensiles {
     background: #ED6454;
-    min-width: 500px;
-    height: 225px;
+    width: 555px;
+    height: 275px;
 }
 
 .dropdown:focus-within .dropdown--content__wrapper{
@@ -158,20 +159,9 @@ a {
     flex-wrap: wrap;
 }
 
-.dropdown:focus-within .ingredient--button{
-    max-width: 845px;
-    transition: 0.5s;
-}
-
-.dropdown:focus-within .appareil--button{
-    max-width: 500px;
-    width: 500px;
-    transition: 0.5s;
-}
-
-.dropdown:focus-within .ustensiles--button{
-    max-width: 500px;
-    transition: 0.5s;
+.dropdown:focus-within .dropbtn{
+    max-width: 550px;
+    width: 550px;
 }
 
 .dropdown:focus-within .arrow--down {
@@ -181,16 +171,18 @@ a {
 .dropdown:focus-within .arrow--up {
     display: block;
     position: absolute;
-    right: 0px;
+    left: 550px;
 }
 
 .filter {
     color: white;
     text-transform: capitalize;
+    width: 33%;
 }
 
 .selected--items {
     margin-top: 15px;
+    display: flex;
 }
 
 .selected--ingredient {
@@ -223,7 +215,7 @@ a {
     cursor: pointer;
 }
 
-#main--wrapper {
+.main--wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -244,20 +236,17 @@ a {
 .recipe--wrapper {
     height: 360px;
     width: 380px;
-    background-color: #E7E7E7;
     border-radius: 5px;
     margin-bottom: 25px;
-}
-
-.recipe--image {
-    height: 40%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 5px 5px 0px 0px;
+    background: #D5D5D5;
+    display: flex;
 }
 
 .recipe--description {
     padding: 10px;
+    background-color: #E7E7E7;
+    border-radius: 0px 0px 5px 5px;
+    align-self: flex-end;
 }
 
 .title--wrapper {
@@ -297,4 +286,10 @@ a {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.error--message {
+    color: black;
+    font-size: 25px;
+    margin: 10px;
 }
